@@ -1,0 +1,18 @@
+server:
+  port: 8089
+spring:
+  application:
+    name: order
+kafka:
+  bootstrapAddress: localhost:29092
+  topics:
+    order: order
+logging:
+  level:
+    root: info
+
+monitoring:
+  api:
+    url: ${SPLUNK_URL}
+    token: ${SPLUNK_TOKEN}
+    sourceType: _json

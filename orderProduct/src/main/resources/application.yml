@@ -1,0 +1,12 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: order
+kafka:
+  bootstrapAddress: localhost:29092
+  topics:
+    order: order
+logging:
+  level:
+    root: info
