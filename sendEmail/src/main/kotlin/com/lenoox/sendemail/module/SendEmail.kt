@@ -8,7 +8,7 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 
 @Component
-class SendEmail(val monitoringService: MonitoringService, val logsService: LogsService) {
+class SendEmail(private val monitoringService: MonitoringService, private val logsService: LogsService) {
 
     @KafkaListener(topics = ["\${kafka.topics.order}"], groupId = "ppr")
     fun listenGroupFoo(order: Order) {

@@ -42,3 +42,5 @@ bin/
 .DS_Store
 
 /sendEmail/.env
+/terraform/.terraform/
+/terraform/.terraform.lock.hcl

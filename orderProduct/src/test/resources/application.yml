@@ -1,8 +1,8 @@
 server:
-  port: 8089
+  port: 8090
 spring:
   application:
-    name: sendEmail
+    name: order
 kafka:
   bootstrapAddress: localhost:29092
   topics:
@@ -10,8 +10,3 @@ kafka:
 logging:
   level:
     root: info
-monitoring:
-  api:
-    url: ${SPLUNK_URL}
-    token: ${SPLUNK_TOKEN}
-    sourceType: _json

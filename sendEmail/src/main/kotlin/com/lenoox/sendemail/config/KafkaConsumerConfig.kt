@@ -15,11 +15,9 @@ import org.springframework.kafka.support.serializer.JsonDeserializer
 
 @EnableKafka
 @Configuration
-class KafkaConsumerConfig(
+class KafkaConsumerConfig {
     @Value("\${kafka.bootstrapAddress}")
-    private val servers: String
-) {
-
+    private val servers: String=""
     @Bean
     fun consumerFactory(): DefaultKafkaConsumerFactory<String, Order> {
         val deserializer: JsonDeserializer<Order> = JsonDeserializer(

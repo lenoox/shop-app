@@ -31,12 +31,15 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.kafka:spring-kafka-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-log4j2")
+
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 }
 configurations {
     all {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+        exclude(group= "ch.qos.logback", module= "logback-classic")
     }
 }
 
