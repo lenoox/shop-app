@@ -8,11 +8,13 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.core.KafkaAdmin
 
 @Configuration
-class KafkaConfig{
+class KafkaConfig {
     @Value("\${kafka.bootstrapAddress}")
-    private val servers: String=""
+    private val servers: String = ""
+
     @Value("\${kafka.topics.order}")
-    private val topic: String=""
+    private val topic: String = ""
+
     @Bean
     fun kafkaAdmin(): KafkaAdmin {
         val configs: MutableMap<String, Any?> = HashMap()

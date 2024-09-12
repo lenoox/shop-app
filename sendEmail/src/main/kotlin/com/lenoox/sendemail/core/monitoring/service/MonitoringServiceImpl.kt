@@ -1,6 +1,5 @@
 package com.lenoox.sendemail.core.monitoring.service
 
-import com.lenoox.sendemail.config.RestTemplateConfig
 import com.lenoox.sendemail.core.monitoring.model.EventMonitoringRequest
 import com.lenoox.sendemail.core.monitoring.model.MonitoringRequest
 import com.lenoox.sendemail.model.UserRequest
@@ -10,10 +9,11 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
+import org.springframework.web.client.RestTemplate
 
 
 @Service
-class MonitoringServiceImpl(private val restTemplateConfig: RestTemplateConfig) :
+class MonitoringServiceImpl(private val restTemplate: RestTemplate) :
     MonitoringService {
     //@TODO create monitoring in microservices
     @Value("\${monitoring.api.url}")
@@ -50,7 +50,7 @@ class MonitoringServiceImpl(private val restTemplateConfig: RestTemplateConfig) 
             event = eventMonitoringData
         )
         val request = HttpEntity(monitoringData, headers)
-        restTemplateConfig.restTemplate().exchange(monitoringApiUrl, HttpMethod.POST, request, String::class.java)
+        restTemplate.exchange(monitoringApiUrl, HttpMethod.POST, request, String::class.java)
 
     }
 }

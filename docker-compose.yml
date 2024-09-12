@@ -39,6 +39,14 @@ services:
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
     networks:
       - gateway
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodbData:/data/db
 networks:
   gateway:
     name: gateway
+volumes:
+  mongodbData:

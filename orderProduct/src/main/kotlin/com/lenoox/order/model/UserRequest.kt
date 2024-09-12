@@ -1,8 +1,8 @@
 package com.lenoox.order.model
 
-data class Order(
+class UserRequest(
     val id: Long,
     val firstName: String,
     val lastName: String,
-    val price: Number?
+    val email: String,
 )

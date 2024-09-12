@@ -1,3 +1,4 @@
+
 repositories {
     mavenCentral()
 }
@@ -8,4 +9,8 @@ tasks.bootJar{
 
 tasks.jar{
     enabled = true
+}
+dependencies{
+    implementation(project(":orderProduct"))
+    implementation(project(":sendEmail"))
 }
