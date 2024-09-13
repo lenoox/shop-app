@@ -62,14 +62,12 @@ internal class OrderProductIntegrationTest {
         val uws: SpringApplicationBuilder = SpringApplicationBuilder(OrderApplication::class.java)
             .properties(
                 "server.port=8023",
-                "spring.config.name:application"
             )
         uws.run()
 
         val pws: SpringApplicationBuilder = SpringApplicationBuilder(SendEmailApplication::class.java)
             .properties(
                 "server.port=8024",
-                "spring.config.name:application"
             )
         pws.run()
 
