@@ -44,3 +44,7 @@ bin/
 /sendEmail/.env
 /terraform/.terraform/
 /terraform/.terraform.lock.hcl
+/devops/terraform/.terraform.lock.hcl
+/devops/terraform/terraform.tfstate
+/devops/terraform/terraform.tfstate.backup
+/devops/terraform/.terraform/
