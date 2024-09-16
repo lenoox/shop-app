@@ -1,0 +1,61 @@
+#!/usr/bin/env groovy
+pipeline {
+    agent any
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_DEFAULT_REGION = "eu-west-3"
+        registry = "891376971673.dkr.ecr.eu-west-3.amazonaws.com/shop-app"
+    }
+    stages {
+        stage("Create an EKS Cluster") {
+            steps {
+                script {
+                    dir('terraform') {
+                        sh "terraform init"
+                        sh "terraform apply -auto-approve"
+                    }
+                }
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/lenoox/shop-app']])
+            }
+        }
+
+        stage ("build Jar") {
+            steps {
+                sh "mvn clean install"
+            }
+        }
+
+        stage ("Build image") {
+            steps {
+                script {
+                    docker.build registry
+                }
+            }
+        }
+
+        stage ("Push to ECR") {
+            steps {
+                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 891376971673.dkr.ecr.eu-west-3.amazonaws.com"
+                sh "docker push 891376971673.dkr.ecr.eu-west-3.amazonaws.com/shop-app:latest"
+
+            }
+        }
+
+        stage("Deploy to EKS") {
+            steps {
+                script {
+                    dir('kubernetes') {
+                        sh "aws eks update-kubeconfig --name shop-app"
+                        sh "kubectl apply -f ./devops/kubernetes/orderProduct.yaml"
+                    }
+                }
+            }
+        }
+    }
+}
